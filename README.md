@@ -147,6 +147,24 @@ Transformace z doménový třídy na sw třídu přímo není dostatečná. Nejd
 
 Element - jako bysme měli cihly pro stavění, který by už v sobě obsahovaly strukturální stabilitu, ochranu, izolaci, dráty pro elektriku, trubky pro vodu atd.
 
+### Poslední fáze
+Když mám fancy elementy, tak je změna do konceptuální třídy contained - budu třeba dělat víc než jen jednu, ale všechny budou obsažený uvnitř elementu (třídy + encapsulatorů). Nebude škálovat s velikostí systému.
+
+Pět definovaných elementů je schopno naimplementovat teoreticky jakýkoliv informační systém - je to abstrakce instrukcí procesorů.
+
+Vždycky bude nějaká dependence - na databázi, na frameworku, na něčem. To akceptujem, musíme jí teď jenom separate and encapsulate (tm).
+
+V Javě, persistence - dependence na JPA - ta je encapsulovaná.
+Remote call, transakce - to samý (RMI, EJB).
+
+##### Evolvability
+Dimenze:
+- Mirrors (models) - přidávám další a další konceptuální modely, atributy atd.
+- Skeletons (structures) - pokaždý když dostanu nový concern, např. chci všechno od teď logovat do NSA, nebude to předělávání celý aplikace.
+- Utilities (tech frameworks) - přijde nový framework, nová non-backward-compatible verze, něco -> chcito použít žavés
+- Craftings (custom code) - potřebuju možnost si customizovat chování, implementace tasků, obrazovek atd.
+
+Tyhle dimenze se evolvujou nezávisle na sobě, změna v jedné mi nesmí ripplovat ostatními. Aby byla aplikace evolvable, tohle musí fungovat.
 
 
 
