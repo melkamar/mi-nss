@@ -99,3 +99,75 @@ Sink pipeline - podobně jako assembly lines, jo, všechno supr. Ale je tu rozd�
 - Sink pipeline - je tu coupling. Když se něco sesere, nejsem schopen říct ve který funkci! Možná že to bylo už od tý nejpůvodnější, která dala špatný data.
 
 Analogie assembly line bude nějaký (stateful) controller! Proces, co orchestruje volání funkcí.
+
+Bacha na Maven, já budu mít třeba jednu, dvě dependence, ale tranzitivně budu stahovat celej vesmír.
+
+Data structure vyžaduje kombinaci registrů a instrukcí.
+
+-> Měl bych mít dva typy tříd - Data Class a Action Class.
+
+Coupling není sám o sobě špatnej, když se kvůli němu nedělaj žádný ripple efekty.
+
+Design Ambiguity Revisited
+- Autor říká, že není coupling mezi Registerem a Paymentem.
+- ALE, nemůžu si bejt jistej, že nic co se stane v Paymentu neovlivní Register. Můžou se třeba začít vracet corrupt data.
+- Podle přednášejících v příkladu chybí čtvrtá krabička, controller se stavem.
+
+#### Po předvečeři
+Oddělení modulů - mám x modulů, ale několikanásobně víc možností, jak je pospojovat. ALE, ve chvíli kdy to začnu měnit, a mám to udělaný špatně, může se mi stát že budu mít exponenciálně modulů který musim upravovat.
+
+Coupling nejsou jenom šipky v designu, musím uvažovat i formát dat co vracim, výjimky co jsou házený, jdk, atd.
+
+Modularizace je fajn, vypadá sexy, ale pokud to neudělam správně, bez harmful couplingu, je to v háji, projeví se mi to časem -> Exponential ripple costs.
+
+You destroy the evolvability by making the system more flexible. If not done properly.
+
+Cross-cutting concern - concern kterej je požadovanej všude v systému, prořízne napříč funkcionální strukturou. Např. logging, encryption, atd.
+- Persistence, access control, remote access - tohle potřebuju napříč všema datama.
+    - Např mam hotovej systém, všechno ok. Pak někdo přijde a že mam přidat data access control na všechno. Jsem v háji.
+- Cross cutting jsou nebezpečný, protože je mam z definice všude. A když změnim něco z toho concernu, projeví se mi to na spoustě míst.
+- Musim decouplovat nejen modely, ale i tohle concerny.
+- To že mam nějaký standardní řešení neznamená že to bude ok a bez problémů, i tak bych to měl encapsulovat.
+- Není dobrý, že duplikuju nastavení loggerů, například.
+- Další řešení je, že budu mít miniframework pro něco a budu mít "relay moduly", který budou volat framework. Core změny udělam na úrovni frameworku (červený plochy), a neprojeví se mi to dole, v "businessu".
+- Dneska mam ale std řešení, takže to můžu používat. ALE musim si dávat pozor v encapsulation a oddělit ten persistence concern or data. (Na slajdu se zelenou střechou ty červený obdélníky).
+- Když pak ale budu chtít vyměnit framework, budu muset vyměnit všechny konektory do framworku - zelený svislý čáry. Lepší je udělat nějakej mezi-adaptér.
+- Žlutá je dobrá, ale není vždy realistická ani všemocná. Musel bych v ní v podstatě naduplikovat interface frameworku. Je to tempting, ale zelená je (minimálně dneska) reálnější. Co když wrapnu jeden framework, ale ten druhý má totálně jiný API? Můžu stejně dostat ripples.
+- Taky možnost diverzifikace - použít různý najednou. Přednášející používaj většinou zelenou, a protože maj fancy generátory kódu, neni problém přegenerovávat zelený krychličky.
+- Ale nehledě na to, jakou architekturu použijem, ještě důležitější je encapsulation krychliček.
+Frameworky se používají na cross-cutting concerny, protože ty jsou sdílený mezi všema lidma. Tak to někdo vytvořil.
+- Data class nemá vědět jak se ukládat, bude tam nějaká ClassPersistor class, která bude anotovaná a která se o to bude starat. Data class je prostě tupá.
+
+Letadlo - chlazení je embedded, na každym chobotu je jedno chlazení. Kdyby bylo centrální co rozvádí chlad, byl by to zelenej framework.
+
+Mám persistence pro Invoice, potřebuju InvoiceSaver. Order -> OrderSaver. Stejně tak s access rights, všechny concerny musím encapsulovat. Takže co musim udělat, abych se zbavil ripples - nestačí jen oddělit třídy a použít framework - musim ke každý třídě udělat adaptér, encapsulator - integrace na nejnižší úrovni. Každá krabička včetně jejich encapsulatorů je **element**.
+
+#### Revisiting transformations
+Transformace z doménový třídy na sw třídu přímo není dostatečná. Nejdřív se to musí encapsulovat.
+
+Element - jako bysme měli cihly pro stavění, který by už v sobě obsahovaly strukturální stabilitu, ochranu, izolaci, dráty pro elektriku, trubky pro vodu atd.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+todo: Aspect oriented programming
