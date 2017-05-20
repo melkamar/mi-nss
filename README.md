@@ -212,10 +212,54 @@ OLTP - On-Line Transaction Processing systems
 #### Remarks
 Je důležitý mít taxonomii i v relačním modelu (slide 34). Mám základní entity, ale pak mám i nějaký sekundární - to jsou např. značka auta, typ auta, blabla. Není to to hlavní co potřebuju v modelu pro půjčovnu aut. Pak mám třeba tabulku pro historii výpůjček, to je zas jiná "dimenze". Pak finance, spojení s bankou atd. (tohle všechno na úrovni modelu/DB)
 
+Mělo by taky být víc encapsulace na úrovni business procesů, chybí struktura, všechno je to ad hoc. Oddělení tasků, sub-flows...
+
+Lifecycles by měly být taky separated a encapsulated. Implementovány stavovými automaty, připojenými k entitám (slide 54). Lifecycle relationship je mezi entitama JENOM pokud je tam relationship mezi nima na konceptuální úrovni.
 
 
+## Conclusion
+Současný styl architektury je sice modulární, vypadá dobře, ale jsou tam ty ripple efekty.
 
+Co je na tom špatně? NIC! :D Takhle se SW staví už dekády a transformoval společnost a celou planetu. Funguje to. Nicméně, ve chvíli kdy budu chtít současný software změnit, budu mít problém.
 
+Teď máme statickou modularitu. Ale chceme evolvable modularitu, potom bude možný bejt agilní, rychlej, dobrej.
+
+Kdyby všechny ty metodologie opravdu fungovaly, nejspíš by se za takovouhle dobu uchytily. To se ale nestalo, takže nic moc.
+
+Když chcem postavit velkou strukturu, systém, a nemám žádný daný vědecký podklady, bude to všechno subjektivní, věc názoru. Jedna z možných, ale ne jediná, je tahle jejich Systems Theoretic Stability.
+
+- Doug Mc Ilroy - building blocks, modularita.
+- Manny Lehman - čim víc vyvíjím software, tím víc se to sere.
+
+Fine grained moduly jsou fragile, a to z důvodu, že jejich výhody existují jenom pokud striktně kontroluju coupling a combinatorial effects.
+
+Conclusion - v určitých, velmi omezených podmínkách, má Ilroy pravdu. Ale jinak Lehman.
+
+Issue 3 - viz ESB, všichni souhlasí že je to dobrý, ale i tak se to nepoužívá tolik. Muselo by se to aplikovat systematicky, všude, pořád. Design patterns taky  nejsou straightforward, je tam místo pro subjektivitu, to je špatně. Proto jsou potřeba generátory kódu. Neříkají, že jejich generátory jsou dobrý nebo ani nejlepší. Co říkají je, že modularita je tak křehká, že potřebuješ víc než jenom knihy a programátory, abys udržel coupling a combinatorial efekty.
+
+Issue 4 - UP říká, že máme traceability napříč analýzou, designem, implementací. Ale tohle je moc optimistický. Mám cross-cutting concerny, které jdou napříč spektrem funkcí, změna v nich ovlivní spoustu míst. Řešení? Prime radiants, tam jasně vidím, že když změním nastavení, skeleton, model, tak mi ukáže/vygeneruje co se kde změnilo.
+
+### Looking forward
+Chtějí stavět na tom co maj, jak teorii tak tooling - Radiant vypadá blbě.
+Ale, současný Prime Radiant ukazuje, hodně detailně, strukturu celýho systému.
+Na tom se dá stavět novej typ softwaru, třeba pro kontrolu toho, jestli se nepoužívá kód znovu a znovu, zbytečně. Pak se dá doporučovat refactoring, případně automatizovat. Tohle je PhD. materiál a dá se na tom pracovat hned.
+
+Usecases jdou i Beyond IT. Modulární telefony? Měly vydržet navěky, jenom by se vyměňovaly prvky. Ale z pohledu NS teorie to má faily, Google to nakonec taky vzdal.
+
+Tesla auta - hlavní challenge jsou baterie, Musk bude muset udělat novou fancy baterku. Ale to neudělal, šel jinudy. Místo toho vzal existující baterky a pospojoval je. Samotná neni moc silná, ale ta technologie je scalable - prostě jich zapojíš víc. Tohle s monolitickejma baterkama nejde. Tam je potřeba design nový baterky, jako u Saturn V. Teď to taky dělá s baterkama do domu.
+
+Combinatorial effects v dokumentech:
+- Máme stovku slajdů o NS, tam jsou někde puzzlíky - obrázky. Co když budu chtít místo puzzlíků použít jinej obrázek? Budu to muset změnit na hrozně slajdech. To je ripple.
+
+Máš několik verzí dokumentu a u všech verzí variace (např. jazyky). To je hrozně moc kombinací. Případně firma má 170 dokumentů o safety, ty se musí ročně udržovat, je to fail, lidi dělaj chyby, za to jsou pokuty.
+
+Jak aplikovat NS? Zase, co jsou funkce, a co jsou cross-cutting concerns? Modul by měl bejt jeden kurz, ten má nějaký atributy. Pak nějakej generátor může generovat dokumenty.
+
+Sice je Prime radiant cool, umí to věci, ale furt nejsme nikde poblíž biologickým systémům.
+
+### Internship
+něco jako 4 týdny, všechno zaplacený atd. 15.8. - 15.9.
+Bylo by to samostatnější, jakože "pracuj na týhle featuře tohohle".
 
 
 
