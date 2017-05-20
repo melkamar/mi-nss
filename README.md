@@ -166,7 +166,51 @@ Dimenze:
 
 Tyhle dimenze se evolvujou nezávisle na sobě, změna v jedné mi nesmí ripplovat ostatními. Aby byla aplikace evolvable, tohle musí fungovat.
 
+## Sobota
+Custom code - je odděleně, jednoduše může být re-injected do nových verzí elementů atd. A i tak je ho jenom 5-10% v celý codebase.
 
+### Prime radiant
+Pracuje se všema čtyřma dimenzema evolvability:
+
+- Mirrors
+    - Modely, konceptuální elementy, OMO
+- Skeletons
+    - Interní struktura elementů. V code generation termínech jsou to templaty pro třídy.
+- Frameworks
+- Custom code
+
+Na základě výběru daných mirrorů,
+
+Vezme invoice, k tomu pak pro specifikovanou množinu frameworků vyinstanciuje skeletony a skrz to konkrétní třídy. Takhle pospojuje všechny základní třídy, a tím udělá instanci aplikace. Potom, co máme všechny ty třídy připravený a vygenerovaný, potom naházíme custom kód jak do elementů, tak mimo ně.
+
+#### DEMO!
+Prime Radiant je klasická web app.
+
+Aplikace se skládají z komponent, komponenty obsahují modely - mirrory.
+Jedna řádka - jedna aplikace - ve fieldech jde specifikovat všechny dimenze, tj. modely, jakou strukturu mají mít, jaký frameworky používám atd.
+
+Skeleton template - ty fancy třídy kolem té hlavní - *Data pro persistence, *Bean pro transakce, *Remote, *Local atd.
+
+Jako vždy, je to o tom udržovat sumu, ale mít možnosti produktu (všechny kombinace elementů/frameworků).
+
+Formálně taky dokázali, že ve všech těch dimenzích můžou dělat změny, přidávat elementy atd., aniž by došlo k rippling efektu. Všechny změny jsou contained.
+
+If for a bounded set of elements if you want to change an implementation detail, the change is bounded.
+
+However, if you have a code generator, you can change a concern (skeleton), and have the change bounded, yet all applications will be updated at once. New concerns are also easily added.
+
+Oh, persistency? Mám zelenej případ frameworku, takže to mam všude možně naduplikovaný - ale mám generátor kódu, můžu změnit definici a přegenerovat VŠECHNO.
+
+#### Performance
+Podle nich, neni čas to dokazovat:
+
+Separation of concerns pomáhá v tom, že nejsou takový dlouhý pipeliny, který by musely alokovat zdroje, čekat atd.
+
+OLTP - On-Line Transaction Processing systems
+- Commandmenty pro OLTP jsou dost podobný těm evolvability constraintům, je to dobrý.
+
+#### Remarks
+Je důležitý mít taxonomii i v relačním modelu (slide 34). Mám základní entity, ale pak mám i nějaký sekundární - to jsou např. značka auta, typ auta, blabla. Není to to hlavní co potřebuju v modelu pro půjčovnu aut. Pak mám třeba tabulku pro historii výpůjček, to je zas jiná "dimenze". Pak finance, spojení s bankou atd. (tohle všechno na úrovni modelu/DB)
 
 
 
